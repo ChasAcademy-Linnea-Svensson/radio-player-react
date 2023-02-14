@@ -7,7 +7,7 @@ function Skeleton() {
       <div className='w-full flex flex-col items-start justify-center gap-6 p-4 bg-gray-400'>
         <h1 className=' text-4xl font-semibold'>Loading Channel</h1>
 
-        <audio controls>
+        <audio controls className='w-full'>
           <source src='' type='audio/mpeg' />
         </audio>
       </div>

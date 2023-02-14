@@ -14,16 +14,18 @@ function ChannelList() {
 
     const data = await response.json();
 
-    setChannels(
-      data.channels.filter((channel) =>
-        channel.name.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-    setLoading(false);
+    return data;
   };
 
   useEffect(() => {
-    getChannels();
+    getChannels().then((data) => {
+      setChannels(
+        data.channels.filter((channel) =>
+          channel.name.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+      setLoading(false);
+    });
   }, [search]);
 
   const handleChange = (e) => {
@@ -32,13 +34,6 @@ function ChannelList() {
 
   return (
     <div className='flex flex-col gap-6'>
-      <div className={`flex flex-col gap-6 ${loading ? 'block' : 'hidden'}`}>
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-      </div>
-
       <input
         type='text'
         placeholder='Search Channel'
@@ -46,6 +41,12 @@ function ChannelList() {
         value={search}
         onChange={handleChange}
       />
+      <div className={`flex flex-col gap-6 ${loading ? 'block' : 'hidden'}`}>
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+      </div>
       {channels.map((channel) => (
         <Channel key={channel.id} channel={channel} />
       ))}
